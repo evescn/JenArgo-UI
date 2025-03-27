@@ -125,7 +125,7 @@ async function createApp() {
                     </template>
                     <a-tag color="blue">
                         <a :href="record.web_url" style="color: #d67037; cursor: pointer; text-decoration: none" target="_blank">
-                            {{ record.web_url.replace(/^(https?:\/\/)gitlab.evescn.com\//, '') }}
+                            {{ record.web_url.replace(/^(https?:\/\/)gitlab.dayuan1997.com\//, '') }}
                         </a>
                     </a-tag>
                 </a-popover>

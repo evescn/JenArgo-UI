@@ -266,7 +266,7 @@ async function deployCiCd(record: any) {
 </script>
 
 <template>
-    <MainHead add en repo @addFunc="handleCreate('create', '')" @dataList="getDeploysList" @envChange="getEnValue" @groupChange="getRepoValue" @searchChange="getSearchValue" />
+    <MainHead add deployRepo en @addFunc="handleCreate('create', '')" @dataList="getDeploysList" @deployRepoChange="getRepoValue" @envChange="getEnValue" @searchChange="getSearchValue" />
     <!-- 表格数据 -->
     <a-card>
         <a-table :columns="columns" :data="deployList" :loading="appLoading" :pagination="false" style="font-size: 12px">

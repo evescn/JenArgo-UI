@@ -8,12 +8,13 @@ defineProps({
     namespace: { type: Boolean, default: false },
     en: { type: Boolean, default: false },
     repo: { type: Boolean, default: false },
+    deployRepo: { type: Boolean, default: false },
     urlEnv: { type: Boolean, default: false },
     searchDescribe: { type: String, default: '' },
     add: { type: Boolean, default: false }
 })
 
-const emit = defineEmits(['searchChange', 'envChange', 'groupChange', 'urlEnvChange', 'dataList', 'addFunc'])
+const emit = defineEmits(['searchChange', 'envChange', 'groupChange', 'deployRepoChange', 'urlEnvChange', 'dataList', 'addFunc'])
 
 // 搜索
 const searchValue = ref('')
@@ -31,9 +32,19 @@ function enChange(val) {
 }
 
 function repoChange(val) {
-    serviceStore.setRepo(val)
+    // serviceStore.setRepo(val)
     //子传父
     emit('groupChange', val)
+    //重新获取一次资源列表
+    emit('dataList')
+}
+
+function deployRepoChange(val) {
+    const repo = serviceStore.service.repoList.find((item) => item.value === val)?.label
+    console.log('repo', repo)
+    serviceStore.setRepo(repo)
+    //子传父
+    emit('deployRepoChange', repo)
     //重新获取一次资源列表
     emit('dataList')
 }
@@ -74,6 +85,17 @@ onMounted(() => {
                             @change="repoChange"
                         ></a-select>
 
+                        <!-- CiCd 仓库选择框：当收到父组件传过来的 repo 属性为true时，才展示这个选择框 -->
+                        <span v-if="deployRepo" style="font-size: 14px">仓库组：</span>
+                        <a-select
+                            v-if="deployRepo"
+                            :options="serviceStore.service.repoList"
+                            allow-clear
+                            placeholder="全部"
+                            size="small"
+                            style="width: 140px; margin-right: 10px"
+                            @change="deployRepoChange"
+                        ></a-select>
                         <!-- 搜索框 -->
                         <a-input v-model="searchValue" allow-clear placeholder="请输入" size="small" style="width: 200px; margin-right: 10px" @change="searchChange"></a-input>
                         <a-button ghost size="small" type="primary" @click="$emit('dataList')">
