@@ -1,39 +1,29 @@
 # JenArgo-UI
 
-This template should help get you started developing with Vue 3 in Vite.
+JenArgo UI 界面
 
-## Recommended IDE Setup
+## 项目安装文档
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+[安装文档](./install.md)
 
-## Type Support for `.vue` Imports in TS
+## 应用管理
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+> 查看 GitLab 代码仓库信息
 
-## Customize configuration
+![img](https://img2023.cnblogs.com/blog/1021348/202503/1021348-20250327170648877-585375090.png)
+![img](https://img2023.cnblogs.com/blog/1021348/202503/1021348-20250327171250484-1490632892.png)
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## 服务部署
 
-## Project Setup
+### 服务部署
 
-```sh
-pnpm install
-```
+> 部署服务
 
-### Compile and Hot-Reload for Development
+![img](https://img2023.cnblogs.com/blog/1021348/202503/1021348-20250327170954283-1259049096.png)
 
-```sh
-pnpm dev
-```
+### 服务回滚
 
-### Type-Check, Compile and Minify for Production
+> 服务日志查看以及服务回滚
 
-```sh
-pnpm build
-```
+![img](https://img2023.cnblogs.com/blog/1021348/202503/1021348-20250327171121239-266236079.png)
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
