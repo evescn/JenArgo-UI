@@ -263,6 +263,25 @@ async function deployCiCd(record: any) {
     getDeploysList()
     appLoading.value = false
 }
+
+async function deployAgain(record: any) {
+    let params = {
+        id: 0,
+        app_name: record.app_name,
+        repo_name: record.repo_name,
+        en: record.en,
+        branch: record.branch,
+        tag: record.tag,
+        has_scheduled_tasks: record.has_scheduled_tasks,
+        start_time: ''
+    }
+    try {
+        const res = await apiAddDeploy(params)
+        Message.success(res.msg)
+    } catch (e) {}
+
+    getDeploysList()
+}
 </script>
 
 <template>
@@ -347,6 +366,7 @@ async function deployCiCd(record: any) {
                     <a-button :disabled="record.status === 0" size="small" @click="gotoJenkins(record)"> 详情</a-button>
                     <a-button :disabled="record.status !== 0" size="small" @click="handleCreate('update', record)"> 编辑 </a-button>
                     <a-button :disabled="record.status !== 0" size="small" @click="showConfirm('删除', record, delDeploy)">删除 </a-button>
+                    <a-button :disabled="record.status === 0" size="small" @click="deployAgain(record)">再次构建 </a-button>
                 </div>
             </template>
             <template #footer>
