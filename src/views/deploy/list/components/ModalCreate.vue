@@ -52,7 +52,6 @@ const gitlabRepo = () => {
 const gitlabApp = () => {
     formData.value.createDeploy.app_name = appList.value.find((item) => item.value === formData.value.createDeploy.app_id).label
     formData.value.createDeploy.branch = ''
-    gitlabBranch()
 }
 
 // appList
@@ -76,6 +75,8 @@ async function getAppsList() {
 }
 
 async function gitlabBranch() {
+    formData.value.createDeploy.branch = ''
+    branchList.value = ''
     let params = {
         app_id: formData.value.createDeploy.app_id,
         branch_or_tag: false
@@ -87,11 +88,14 @@ async function gitlabBranch() {
 function onChangeBT() {
     if (formData.value.createDeploy.en === 'prod') {
         gitlabTag()
+    } else {
+        gitlabBranch()
     }
 }
 
 async function gitlabTag() {
     formData.value.createDeploy.branch = ''
+    tagList.value = ''
     if (formData.value.createDeploy.app_id && tagList.value.length === 0) {
         let params = {
             app_id: formData.value.createDeploy.app_id,
@@ -101,6 +105,15 @@ async function gitlabTag() {
         tagList.value = res.data.map((item) => item.name)
     }
 }
+
+watch(
+    () => [formData.value.createDeploy.en, formData.value.createDeploy.app_id],
+    ([en, app_id]) => {
+        if (en && app_id) {
+            onChangeBT()
+        }
+    }
+)
 
 onMounted(() => {
     watch(
@@ -125,7 +138,7 @@ onMounted(() => {
                 <a-select v-model="formData.createDeploy.app_id" :options="appList" allow-search placeholder="请选择" @change="gitlabApp" />
             </a-form-item>
             <a-form-item :rules="[{ required: true, message: '请选择环境' }]" :validate-trigger="['change', 'input']" field="en" label="环境" label-col-flex="120px">
-                <a-select v-model="formData.createDeploy.en" :options="serviceStore.service.enList" placeholder="请选择" show-search size="small" @change="onChangeBT" />
+                <a-select v-model="formData.createDeploy.en" :options="serviceStore.service.enList" placeholder="请选择" show-search size="small" />
             </a-form-item>
             <a-form-item
                 v-if="formData.createDeploy.en === 'prod'"
